@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <div ng-controller="LogController as ctrlLog">
+      <strong>Nível</strong> <br/>
+      <select ng-model="ctrlLog.level">
+        <option ng-value="0">Aviso</option>
+        <option ng-value="1">Erro</option>
+      </select>
+
+      <br/> <br/>
+
+      <strong>Mensagem</strong> <br/>
+      <textarea ng-model="ctrlLog.message" rows="8" cols="40"></textarea>
+
+      <br /> <br />
+      <button ng-click="ctrlLog.adicionaMensagem()">Adicionar Mensagem</button>
+    </div>
+  </body>
+</html>
