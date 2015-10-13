@@ -5,12 +5,21 @@ app.factory("CarrinhoDeCompras", function () {
     return {
       items: [],
       addItem: function (description, price, quantity) {
-        if (this.items.indexOf(description) != -1) {
-          var _index = this.items.indexOf(description);
-          this.items[_index].quantity += quantity;
 
+        var _block = false;
+
+        this.items.forEach(function (item) {
+          if (item.description.search(description) != -1) {
+            var _index = this.items.indexOf(description);
+            this.items[_index].quantity += quantity;
+
+            _block = true;
+            return;
+          }
+        });
+
+        if (_block)
           return;
-        }
 
         this.items.push({
           "description": description,
