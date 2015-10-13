@@ -6,12 +6,13 @@ app.factory("CarrinhoDeCompras", function () {
       items: [],
       addItem: function (description, price, quantity) {
 
+        var $this  = this;
         var _block = false;
 
-        this.items.forEach(function (item) {
+        this.items.forEach(function (item, index) {
           if (item.description.search(description) != -1) {
-            var _index = this.items.indexOf(description);
-            this.items[_index].quantity += quantity;
+            var _index = index;
+            $this.items[_index].quantity += quantity;
 
             _block = true;
             return;
@@ -38,20 +39,22 @@ app.factory("CarrinhoDeCompras", function () {
 
 app.controller("ComprasController", ["CarrinhoDeCompras", function (CarrinhoDeCompras) {
   this.CarrinhoDeCompras = CarrinhoDeCompras;
-  this.description = "";
-  this.price = "";
-  this.quantity = "";
+  this.description = "Notebook";
+  this.price = "1750.0";
+  this.quantity = "2";
 
   this.erase = function(list) {
+    var $this = this;
+
     list.forEach(function (variable) {
-      eval(variable + " = ''; ");
+      eval("$this." + variable + " = \"\"; ");
     });
-  }
+  };
 
   this.adicionarItem = function () {
-    this.CarrinhoDeCompras.addItem(this.description, this.price, this.quantity);
+    this.CarrinhoDeCompras.addItem(this.description, parseInt(this.price), parseInt(this.quantity));
     this.erase(["description", "price", "quantity"]);
-  }
+  };
 }]);
 
 app.controller("CheckoutController", ["CarrinhoDeCompras", function (CarrinhoDeCompras) {
